@@ -3,6 +3,6 @@ const express = require('express')
 
 const router = express.Router()
 
-router.get('/main', mainController.getMain)
+router.get('/main2', mainController.getMain)
 
 module.exports = router
