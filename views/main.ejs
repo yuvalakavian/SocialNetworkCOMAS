@@ -2,16 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Social Network</title>
+    <link rel="stylesheet" href="main.css" />
 </head>
 <body>
-    <h2>Welcome to our Smart City Social Network</h2>
-    <br/>
-    <%for (var i = 0; i < images.length; i++) {%>
-
-            <img src="<%=images[i].name %>">
-    <%}%>
+    <header>
+        <h1>Social Network</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Friends</a></li>
+            <li><a href="#">Messages</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h2>Recent Posts</h2>
+        <div class="post">
+            <p>This is a sample post.</p>
+        </div>
+        <div class="post">
+            <p>Another sample post.</p>
+        </div>
+    </div>
+    <footer>
+        &copy; 2023 Social Network
+    </footer>
 </body>
 </html>
