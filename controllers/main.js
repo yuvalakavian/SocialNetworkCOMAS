@@ -1,7 +1,7 @@
-const mainModel = require('../models/main')
+const page = (req, res) => {
+    res.render("../views/main.ejs");
+};
 
-exports.getMain = function(req, res){
-    const images = mainModel.getImages()   
-
-    res.render('main.ejs', {images : images})
+module.exports = {
+    page
 }

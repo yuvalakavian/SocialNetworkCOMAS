@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { page } = require('../controllers/main');
+const { page } = require('../controllers/chat');
 
 const router = express.Router();
 

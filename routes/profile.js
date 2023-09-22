@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { page } = require('../controllers/main');
+const { page } = require('../controllers/profile');
 
 const router = express.Router();
 
