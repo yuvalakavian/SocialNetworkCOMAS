@@ -21,7 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes
-app.use("/", require("./routes/main"));
+app.use("/", require("./routes/login"));
+app.use(express.static(__dirname + '/views/login'));
+
 app.use("/chat", require("./routes/chat"));
 app.use("/posts", require("./routes/posts"));
 app.use("/profile", require("./routes/profile"));
