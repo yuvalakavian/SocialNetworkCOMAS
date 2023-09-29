@@ -1,4 +1,6 @@
 const handleSignUp = () => {
+    event.preventDefault();
+    
     const signUpData = {
         email: $("#email-signup").val(),
         firstName: $("#firstName").val(),
@@ -23,13 +25,17 @@ const handleSignUp = () => {
 const handleLogin = () => {
     const email = $("#email-login").val();
     const password = $("#password-login").val();
-
+    
+    event.preventDefault();
+    
     $.ajax({
         url: "/login",
         method: "POST",
         data: { email, password },    
         success: function (data) {
             console.log(data)
+            window.location.href = "/posts";
+
         },
         error: function (error) {
             console.log(error.responseJSON.message);
@@ -42,7 +48,7 @@ const handleLogin = () => {
 const handleIncorrectCreds = (errorContent) => {
     console.log(errorContent)
     let container = document.getElementById("alert-container");
-    container.innerHTML = `<div class="alert alert-success alert-dismissible fade show">
+    container.innerHTML = `<div class="alert alert-danger alert-dismissible fade show">
         <strong>${errorContent}</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>`;

@@ -7,12 +7,14 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 8080;
+const oneDay = 1000 * 60 * 60 * 24;
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: {secure:true}
+  // cookie: {secure:true}
+  cookie: {maxAge: oneDay}
 }));
 
 mongoose.connect(process.env.MONGO_URL, {

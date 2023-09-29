@@ -17,12 +17,15 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try {
-        const id = await loginService.loginUser(req.body);
+        const id = (await loginService.loginUser(req.body));
+        
         // Keeping user session 
-        req.session.userid = id;
+        req.session.userId = id.toString();
 
         // Return response to client
-        res.json(id)        
+        // res.json(id)        
+        return res.status(200).json(id);
+
     }
     catch (error) {
         console.log(error)
