@@ -2,11 +2,18 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const session = require('express-session');
 require('dotenv').config();
-
 
 const app = express();
 const port = process.env.PORT || 8080;
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {secure:true}
+}));
 
 mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,

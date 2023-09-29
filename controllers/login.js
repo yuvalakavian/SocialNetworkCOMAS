@@ -18,6 +18,10 @@ const createUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         const id = await loginService.loginUser(req.body);
+        // Keeping user session 
+        req.session.userid = id;
+
+        // Return response to client
         res.json(id)        
     }
     catch (error) {

@@ -1,4 +1,3 @@
-
 const handleSignUp = () => {
     const signUpData = {
         email: $("#email-signup").val(),
