@@ -4,12 +4,34 @@ const page = (req, res) => {
     res.render("../views/login.ejs");
 };
 
-const createUser = (req, res) => {
-    const user = loginService(req.body);
-    res.json(user);
+const createUser = async (req, res) => {
+    try {
+        const user = await loginService.createUser(req.body);
+        res.json(user);
+    }
+    catch (error) {
+        res.error(error);
+    }
+    
 }
+
+const loginUser = async (req, res) => {
+    try {
+        const id = await loginService.loginUser(req.body);
+        res.json(id)        
+    }
+    catch (error) {
+        console.log(error)
+        console.log("pp")
+        
+        // 403 == forbidden
+        res.status(403).json({message: error.message})
+    }
+}
+
 
 module.exports = {
     page,
-    createUser
+    createUser, 
+    loginUser
 }
