@@ -17,6 +17,10 @@ const handleSignUp = () => {
         data: signUpData,
         success: function(data) {
             console.log(data)
+        },
+        error: function (error) {
+            console.log(error.responseJSON.message);
+            handleErrorMessage(error.responseJSON.message);
         }
     });
 }
@@ -39,17 +43,21 @@ const handleLogin = () => {
         },
         error: function (error) {
             console.log(error.responseJSON.message);
-            handleIncorrectCreds(error.responseJSON.message);
+            handleErrorMessage(error.responseJSON.message);
         }
       });
     
 }
 
-const handleIncorrectCreds = (errorContent) => {
-    console.log(errorContent)
-    let container = document.getElementById("alert-container");
-    container.innerHTML = `<div class="alert alert-danger alert-dismissible fade show">
+const handleErrorMessage = (errorContent) => {
+    $("#alert-container").html(`
+    <div class="alert alert-danger alert-dismissible fade show">
         <strong>${errorContent}</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>`;
+    </div>
+`);
+}
+
+const cleanAlerts = () => {
+    $("#alert-container").html('');
 }

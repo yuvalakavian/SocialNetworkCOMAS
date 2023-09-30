@@ -1,15 +1,15 @@
 body {
-    background-color: #f5f5f5; /* Light gray background color */
+    background-color: #f5f5f5;
 }
 
 .nav-tabs {
-    justify-content: center; /* Center the tabs horizontally */
-    margin-bottom: 20px; /* Add some spacing at the bottom of the tabs */
+    justify-content: center; 
+    margin-bottom: 20px;
 }
 
 .nav-tabs .nav-item {
-    flex: 0 0 auto; /* Make the tabs smaller */
-    margin-right: 10px; /* Add spacing between the tabs */
+    flex: 0 0 auto; 
+    margin-right: 10px;
 }
 
 .form-control {
@@ -22,21 +22,22 @@ body {
     align-items: center;
 }
 
-/* Center the big letters vertically and horizontally */
-.big-letters-container {
+.mb-3 span{
+    margin-top: 100px;
+}
+
+#alert-container, #logo-container{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
-/* Style for big letters */
-.big-letter {
-    font-size: 3rem; /* Adjust the font size as needed */
-    font-weight: bold;
-    margin: 0 10px; /* Add spacing between the letters */
-}
-
-.mb-3 span{
-    margin-top: 100px;
+#buttom-box {
+    background-color: #000000cc;
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
