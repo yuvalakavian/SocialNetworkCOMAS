@@ -13,5 +13,9 @@ body {
 }
 
 .navbar-nav .nav-link {
-    color: white !important;
+    margin-left: 20px;
+}
+
+#topNav{
+    background-color: #afa1937a
 }

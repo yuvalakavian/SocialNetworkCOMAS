@@ -10,7 +10,6 @@ const hashHandler = (password) => {
 }
 
 const createUser = async (userData) => {
-    console.log("user", userData)
     if (!userData || !userData.email || !userData.firstName || !userData.lastName || !userData.country || !userData.city || !userData.streetAddress || !userData.password) {
         console.error('Invalid user data. All fields are required.')
         throw new Error('Invalid user data. All fields are required.')
@@ -18,8 +17,8 @@ const createUser = async (userData) => {
 
     const existingUser = await User.findOne({ email: userData.email });
     if (existingUser) {
-        console.error('Email address is already registered.')
-        throw new Error('Email address is already registered.')
+        console.error('User is already registered.')
+        throw new Error('User is already registered.')
     }
     
     userData.password = hashHandler(userData.password)
@@ -39,7 +38,6 @@ const createUser = async (userData) => {
 const loginUser = async (userData) => {
     const hashedPassword = hashHandler(userData.password)
     
-    console.log(hashedPassword)
     const existingUser = await User.findOne({ email: userData.email, password: hashedPassword });    
     if (existingUser) {
         console.log(existingUser._id)

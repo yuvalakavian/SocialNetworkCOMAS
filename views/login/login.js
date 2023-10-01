@@ -17,6 +17,8 @@ const handleSignUp = () => {
         data: signUpData,
         success: function(data) {
             console.log(data)
+            $("#signupForm")[0].reset()
+            window.location.href = "/";
         },
         error: function (error) {
             console.log(error.responseJSON.message);
@@ -52,11 +54,13 @@ const handleErrorMessage = (errorContent) => {
     $("#alert-container").html(`
     <div class="alert alert-danger alert-dismissible fade show">
         <strong>${errorContent}</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="cleanAlerts()"></button>
     </div>
 `);
 }
 
 const cleanAlerts = () => {
     $("#alert-container").html('');
+    $("#signupForm")[0].reset()
+    $("#loginForm")[0].reset()
 }
