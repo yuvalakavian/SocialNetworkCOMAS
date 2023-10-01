@@ -14,7 +14,7 @@ const groupSchema = new Schema({
         required: true
     },
     posts: [Post],
-    membres: [User],
+    members: [User],
     admin: {
         type: mongoose.Schema.Types.ObjectId,
         ref: User,

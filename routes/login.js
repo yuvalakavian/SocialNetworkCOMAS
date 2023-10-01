@@ -5,8 +5,8 @@ const { isAuthenticated } = require('../middleware/middlewareFunction')
 
 const router = express.Router();
 
-router.get('/', isAuthenticated(), firstPageHandler);
-router.post('/signup', isAuthenticated(),createUser);
-router.post('/login', isAuthenticated(), loginUser);
+router.get('/', firstPageHandler);
+router.post('/signup', createUser);
+router.post('/login', loginUser);
 
 module.exports = router;
