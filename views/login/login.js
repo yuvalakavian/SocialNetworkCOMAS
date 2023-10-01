@@ -39,7 +39,6 @@ const handleLogin = () => {
         success: function (data) {
             console.log(data)
             window.location.href = "/posts";
-
         },
         error: function (error) {
             console.log(error.responseJSON.message);
