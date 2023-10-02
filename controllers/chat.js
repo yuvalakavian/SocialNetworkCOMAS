@@ -14,7 +14,30 @@ const getUserFriends = async (req, res) => {
     }
 }
 
+const getChat = async (req,res) => { 
+    try {
+        const chat = await chatService.getChat(req.session.userId, req.params.userId)
+        res.json(chat);
+    }
+    catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
+const createNewChat = async (req, res) => { 
+    try {
+        console.log(req)
+        const chat = await chatService.createNewChat(req.session.userId, req.params.userId)
+        res.json(chat);
+    }
+    catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
+
 module.exports = {
     page,
-    getUserFriends
+    getUserFriends,
+    getChat,
+    createNewChat
 }

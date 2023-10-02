@@ -74,8 +74,29 @@ const handleOnFriendClick = (user) => {
     clearChatElements();
     const userElement = document.getElementById(user._id);
     userElement.classList.add('clearfix', 'active');
-    //render
+    //render chat header
     renderChatHeader(user)
+
+    $.ajax({
+        url: `/chat/${user._id}`,
+        method: "GET",
+        success: function (data) {
+            //implement render messages method
+            console.log(data);
+        },
+        error: (error) => {
+            $.ajax({
+                url: `/chat/${user._id}`,
+                method: "POST",
+                success: function (data) {
+                    console.log("create chat was successfuly", data);
+                },
+                error: (error) => {
+                    console.log("failed to create chat", error);
+                }
+            })
+        }
+    });
 
 }
 
