@@ -1,18 +1,3 @@
-// chat header example 
-// <div class="row">
-// <div class="col-lg-6">
-//     <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-//         <img src="https://bootdey.com/img/Content/avatar/avatar2.png"
-//             alt="avatar">
-//     </a>
-//     <div class="chat-about">
-//         <h6 class="m-b-0">Aiden Chavez</h6>
-//         <small>Last seen: 2 hours ago</small>
-//     </div>
-// </div>
-// </div>
-
-
 //
 //     <li class="clearfix">
 //         <div class="message other-message float-right"> Hi Aiden, how are you? How
@@ -87,17 +72,59 @@ const initChat = () => {
 
 const handleOnFriendClick = (user) => {
     clearChatElements();
-    console.log(user);
     const userElement = document.getElementById(user._id);
-    console.log(userElement);
-    
     userElement.classList.add('clearfix', 'active');
+    //render
+    renderChatHeader(user)
+
+}
+
+const renderChatHeader = (user) => {
+    const chatHeaderElement = document.getElementById('chat-header');
+
+    const headerRowDiv = document.createElement('div');
+    headerRowDiv.className = 'row';
+
+    const headerColDiv = document.createElement('div');
+    headerColDiv.className = 'col-lg-6';
+
+    const userProfilePictureAElement = document.createElement('a');
+    userProfilePictureAElement.setAttribute('data-toggle', 'modal');
+
+    const userProfilePictureImageElement = document.createElement('img');
+    userProfilePictureImageElement.src = user.profilePicture || `${AVATAR_API_URL}?name=${user.firstName}+${user.lastName}`;
+    userProfilePictureImageElement.alt = 'avatar';
+
+    const chatAboutDiv = document.createElement('div');
+    chatAboutDiv.className = 'chat-about';
+
+    const userTitleElement = document.createElement('h6');
+    userTitleElement.textContent = `${user.firstName} ${user.lastName}`;
+
+    const userEmailElement = document.createElement('small');
+    userEmailElement.textContent = user.email
+
+    userProfilePictureAElement.appendChild(userProfilePictureImageElement);
+    chatAboutDiv.appendChild(userTitleElement);
+    chatAboutDiv.appendChild(userEmailElement);
+    headerColDiv.appendChild(userProfilePictureAElement);
+    headerColDiv.appendChild(chatAboutDiv);
+    headerRowDiv.appendChild(headerColDiv);
+
+    chatHeaderElement.appendChild(headerRowDiv);
+}
+
+const getUserAvaterURL = (user) => {
+    return `${AVATAR_API_URL}?name=${user.firstName}+${user.lastName}`
 }
 
 
 const clearChatElements = () => {
     //reset ui for active chat
     chatFrindsListElemets.forEach(element => element.classList = 'clearfix');
+    //reset chat header
+    const chatHeaderElement = document.getElementById('chat-header');
+    chatHeaderElement.innerHTML = ''
 }
 
 initChat()
