@@ -25,6 +25,7 @@ mongoose.connect(process.env.MONGO_URL, {
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views/posts'));
+app.use(express.static(__dirname + '/views/users'));
 app.use(express.static(__dirname + '/views/login'));
 
 app.use(cors());
@@ -35,6 +36,7 @@ app.use(express.json());
 app.use("/", require("./routes/login")); 
 app.use("/chat",authenticationCheck(), require("./routes/chat"));
 app.use("/posts", authenticationCheck(), require("./routes/posts"));
+app.use("/users", authenticationCheck(), require("./routes/users"));
 app.use("/profile", authenticationCheck(), require("./routes/profile"));
 app.use("/logout", authenticationCheck(), require("./routes/logout"));
 
