@@ -1,9 +1,10 @@
 const express = require('express');
 
-const { page } = require('../controllers/chat');
+const { page, getUserFriends } = require('../controllers/chat');
 
 const router = express.Router();
 
 router.get('/', page);
+router.get('/friends', getUserFriends);
 
 module.exports = router;
