@@ -34,7 +34,7 @@
 
         <div class="tab-content mt-3">
             <div class="tab-pane fade show active" id="login">
-                <form onsubmit="handleLogin()">
+                <form id="loginForm" onsubmit="handleLogin()">
                     <div class="mb-3">
                         <span>Email</span>
                         <input type="email" class="form-control" id="email-login" required>
@@ -51,7 +51,7 @@
             </div>
 
             <div class="tab-pane fade" id="signup">
-                <form  onsubmit="handleSignUp()">
+                <form id="signupForm" onsubmit="handleSignUp()">
                     <div class="mb-3">
                         <span>Email</span>
                         <input type="email" class="form-control" id="email-signup" required>

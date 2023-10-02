@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const User = require('./user');
-const Post = require('./user');
+const Post = require('./post');
 
 const groupSchema = new Schema({
     name: {
