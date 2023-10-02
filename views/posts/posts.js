@@ -18,3 +18,45 @@ document.getElementById('imageUpload').addEventListener('change', function () {
         reader.readAsDataURL(fileInput.files[0]);
     }
 });
+
+const handlePosting = () => {
+    event.preventDefault();
+    
+    const contentData = {
+        content: $("#postContent").val(),
+    };
+    
+    $.ajax({
+        url: "/posts/post",
+        method: "POST",
+        data: contentData,
+        success: function(data) {
+            console.log(data)
+        },
+        error: function (error) {
+            console.log(error.responseJSON.message);
+            handleErrorMessage(error.responseJSON.message);
+        }
+    });
+}
+
+const handleIncreaseLike = (id) => {
+    event.preventDefault();
+    
+    const contentData = {
+        id: id,
+    };
+    
+    $.ajax({
+        url: "/posts/like",
+        method: "POST",
+        data: contentData,
+        success: function(data) {
+            console.log(data)
+        },
+        error: function (error) {
+            console.log(error.responseJSON.message);
+            handleErrorMessage(error.responseJSON.message);
+        }
+    });
+}
