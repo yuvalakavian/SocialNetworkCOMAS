@@ -27,6 +27,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views/posts'));
 app.use(express.static(__dirname + '/views/users'));
 app.use(express.static(__dirname + '/views/login'));
+app.use(express.static(__dirname + '/views/chat'));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
