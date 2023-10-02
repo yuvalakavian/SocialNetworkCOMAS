@@ -8,6 +8,10 @@ const { authenticationCheck } = require('./middleware/authenticationCheck')
 require('dotenv').config();
 
 const app = express();
+
+app.use(express.json({ limit: '15mb' }));
+app.use(express.urlencoded({ limit: '15mb', extended: true }));
+
 const port = process.env.PORT || 8080;
 const oneDay = 1000 * 60 * 60 * 24;
 
@@ -26,6 +30,7 @@ mongoose.connect(process.env.MONGO_URL, {
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views/posts'));
 app.use(express.static(__dirname + '/views/login'));
+app.use(express.static(__dirname + '/views/profile'));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,6 +42,12 @@ app.use("/chat",authenticationCheck(), require("./routes/chat"));
 app.use("/posts", authenticationCheck(), require("./routes/posts"));
 app.use("/profile", authenticationCheck(), require("./routes/profile"));
 app.use("/logout", authenticationCheck(), require("./routes/logout"));
+
+// Not Found pathes handling
+app.use((req, res) => {
+  res.status(404).render('../views/404.ejs'); 
+});
+
 
 // Start the server
 app.listen(port, () => {

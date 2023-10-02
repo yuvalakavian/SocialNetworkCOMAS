@@ -3,7 +3,7 @@ const loginService = require('../service/login')
 const firstPageHandler = (req, res) => {
     // check if the session is already create for the user.
     if (req.session && req.session.userId) {    
-        res.redirect("/posts");
+        res.redirect("/profile");
     }
     else{
         res.render("../views/login.ejs");
@@ -36,7 +36,6 @@ const loginUser = async (req, res) => {
         res.status(403).json({message: error.message})
     }
 }
-
 
 module.exports = {
     firstPageHandler,
