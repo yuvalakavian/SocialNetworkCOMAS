@@ -36,7 +36,11 @@ const userSchema = new Schema({
         type: String,
         require: true
     },
-
+    
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }, 
     friends: [
         {
             type: Schema.Types.ObjectId,

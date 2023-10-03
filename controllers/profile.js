@@ -4,7 +4,6 @@ const postService = require('../service/posts')
 const page = async (req, res) => {
     const myUser = await profileService.getCurrentUser(req.session.userId);
     const posts = await postService.getPosts();
-    // res.render('../views/posts/index.ejs',{posts:posts});
     res.render("../views/profile.ejs", { myUser: myUser,  posts:posts})
 };
 
@@ -16,7 +15,18 @@ const uploadProfilePicHandler = (req,res) => {
         res.status(400).json({message: error.message})
     }
 }
+
+const deleteProfile = async (req, res) => {
+    try{
+        const user = await profileService.deleteProfile(req.session.userId);
+        res.status(201).send(user);
+    } catch (error) {
+        res.render("../views/400.ejs")
+    }
+};
+
 module.exports = {
     page,
-    uploadProfilePicHandler
+    uploadProfilePicHandler,
+    deleteProfile
 }

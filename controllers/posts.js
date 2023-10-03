@@ -4,7 +4,7 @@ const page = async (req, res) => {
     // console.log(req.session.userId)
     
     const posts = await postService.getPosts();
-    res.render('../views/posts/index.ejs',{posts:posts});
+    res.render('../views/posts.ejs',{posts:posts});
     //TODO: add res.render to posts of user
     // res.render)
 };
@@ -31,8 +31,19 @@ const increaseLike = async (req, res) => {
         // 405 == Method Not Allowed
         res.status(405).json({message: error.message})
     }
-        // res.error(error);
-    
+        // res.error(error);   
+}
+
+const deletePost = async (req, res) => {
+    try {
+        const user = await postService.deletePost(req.body);
+        res.json(user);
+    }
+    catch (error) {
+        // 405 == Method Not Allowed
+        res.status(405).json({message: error.message})
+    }
+        // res.error(error);   
 }
 
 const createComment = async (req, res) => {
@@ -52,5 +63,6 @@ module.exports = {
     page,
     createPost,
     increaseLike,
+    deletePost,
     createComment
 }

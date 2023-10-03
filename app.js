@@ -3,7 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require('express-session');
-const { authenticationCheck } = require('./middleware/authenticationCheck')
+const { authenticationCheck, isAdmin } = require('./middleware/authenticationCheck')
 
 require('dotenv').config();
 
@@ -45,7 +45,7 @@ app.use("/posts", authenticationCheck(), require("./routes/posts"));
 app.use("/users", authenticationCheck(), require("./routes/users"));
 app.use("/profile", authenticationCheck(), require("./routes/profile"));
 app.use("/logout", authenticationCheck(), require("./routes/logout"));
-app.use("/statistics", authenticationCheck(), require("./routes/statistics"));
+app.use("/statistics", isAdmin(), require("./routes/statistics"));
 
 // Not Found pathes handling
 app.use((req, res) => {

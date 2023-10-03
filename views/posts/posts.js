@@ -21,16 +21,16 @@ document.getElementById('imageUpload').addEventListener('change', function () {
 
 const handlePosting = () => {
     event.preventDefault();
-    
+
     const contentData = {
         content: $("#postContent").val(),
     };
-    
+
     $.ajax({
         url: "/posts/post",
         method: "POST",
         data: contentData,
-        success: function(data) {
+        success: function (data) {
             console.log(data)
             location.reload(true);
         },
@@ -43,16 +43,16 @@ const handlePosting = () => {
 
 const handleIncreaseLike = (id) => {
     event.preventDefault();
-    
+
     const contentData = {
         id: id,
     };
-    
+
     $.ajax({
         url: "/posts/like",
         method: "POST",
         data: contentData,
-        success: function(data) {
+        success: function (data) {
             console.log(data)
             location.reload(true);
         },
@@ -63,19 +63,39 @@ const handleIncreaseLike = (id) => {
     });
 }
 
-const handleComment = (id) => {
+const handleDeletePost = (id) => {
     event.preventDefault();
-    
+
     const data = {
         id: id,
-        comment: $("#commentText_"+id).val(),
     };
-    
+
+    $.ajax({
+        url: '/posts/deletePost',
+        data: data,
+        type: 'DELETE',
+        success: function (data) {
+            console.log(data);
+            location.reload(true);
+        },
+        error: function (error) {
+            console.error(error);
+        }
+    });
+}
+const handleComment = (id) => {
+    event.preventDefault();
+
+    const data = {
+        id: id,
+        comment: $("#commentText_" + id).val(),
+    };
+
     $.ajax({
         url: "/posts/comment",
         method: "POST",
         data: data,
-        success: function(data) {
+        success: function (data) {
             console.log(data)
             location.reload(true);
         },
@@ -87,6 +107,6 @@ const handleComment = (id) => {
 }
 
 const toggleCommentSection = (id) => {
-    comment_section_id = "commentsSection_"+id
-    $("#"+comment_section_id).toggle(); // Show/hide the comments section
+    comment_section_id = "commentsSection_" + id
+    $("#" + comment_section_id).toggle(); // Show/hide the comments section
 };
