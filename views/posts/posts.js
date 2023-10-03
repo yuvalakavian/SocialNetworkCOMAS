@@ -21,16 +21,16 @@ document.getElementById('imageUpload').addEventListener('change', function () {
 
 const handlePosting = () => {
     event.preventDefault();
-    
+
     const contentData = {
         content: $("#postContent").val(),
     };
-    
+
     $.ajax({
         url: "/posts/post",
         method: "POST",
         data: contentData,
-        success: function(data) {
+        success: function (data) {
             console.log(data)
         },
         error: function (error) {
@@ -42,21 +42,40 @@ const handlePosting = () => {
 
 const handleIncreaseLike = (id) => {
     event.preventDefault();
-    
+
     const contentData = {
         id: id,
     };
-    
+
     $.ajax({
         url: "/posts/like",
         method: "POST",
         data: contentData,
-        success: function(data) {
+        success: function (data) {
             console.log(data)
         },
         error: function (error) {
             console.log(error.responseJSON.message);
             handleErrorMessage(error.responseJSON.message);
+        }
+    });
+}
+
+const handleDeletePost = (id) => {
+    event.preventDefault();
+
+    const data = {
+        id: id,
+    };
+
+    $.ajax({
+        url: '/posts/deletePost',
+        type: 'DELETE',
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (error) {
+            console.error(error);
         }
     });
 }
