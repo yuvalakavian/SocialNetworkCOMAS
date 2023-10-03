@@ -91,7 +91,6 @@ const onEnter = async (event) => {
                             userElement.appendChild(!currentUser?.friends.includes(user._id) ? addButtonElement : removeButtonElement);
                             userElement.style.marginBottom = "10px";
                             filteredUsersContainer.appendChild(userElement);
-
                         });
                     },
                     error: function (error) {
