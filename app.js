@@ -32,6 +32,7 @@ app.use(express.static(__dirname + '/views/posts'));
 app.use(express.static(__dirname + '/views/users'));
 app.use(express.static(__dirname + '/views/login'));
 app.use(express.static(__dirname + '/views/profile'));
+app.use(express.static(__dirname + '/views/statistics'));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -44,6 +45,7 @@ app.use("/posts", authenticationCheck(), require("./routes/posts"));
 app.use("/users", authenticationCheck(), require("./routes/users"));
 app.use("/profile", authenticationCheck(), require("./routes/profile"));
 app.use("/logout", authenticationCheck(), require("./routes/logout"));
+app.use("/statistics", authenticationCheck(), require("./routes/statistics"));
 
 // Not Found pathes handling
 app.use((req, res) => {

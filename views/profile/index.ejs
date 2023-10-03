@@ -18,21 +18,60 @@
 
 <body>
     <%- include('../nav.ejs') %>
-    <div class="container mt-5">
-        <div class="text-center">
-            <h1><%= myUser.firstName %> <%= myUser.lastName %>'s Profile</h1>
-            <div class="mb-3">
-                <img id="profile-image" src="<%= myUser.profilePicture %>" alt="Profile Picture" class="rounded-circle" width="200" height="200">
-                <!-- <img id="profile-image" src="/public/profile.jpg" alt="Profile Picture" class="rounded-circle" width="200" height="200"> -->
-            </div>
-
-            <div class="mb-3">
-                <input type="file" id="fileInput" class="form-control mb-2" style="display:none">
-                <button id="uploadButton" class="btn btn-dark">Change Profile Picture</button>
-                <div id="uploadStatus"></div>
+    <div class="root">
+        <div class="container mt-5">
+            <div class="text-center">
+                <h1><%= myUser.firstName %> <%= myUser.lastName %>'s Profile</h1>
+                <div class="mb-3">
+                    <img id="profile-image" src="<%= myUser.profilePicture %>" alt="Profile Picture" class="rounded-circle" width="200" height="200">
+                </div>
+    
+                <div class="mb-3">
+                    <input type="file" id="fileInput" class="form-control mb-2" style="display:none">
+                    <button id="uploadButton" class="btn btn-dark">Change Profile Picture</button>
+                    <div id="uploadStatus"></div>
+                </div>
             </div>
         </div>
     </div>
+
+    
+
+    <% posts.forEach(function(item) { %>
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <img src="profile.jpg" alt="Profile Picture" class="rounded-circle" width="50"
+                            height="50">
+                        <div class="ml-3">
+                            <h5 class="mb-0"><%=item.user.firstName %> <%=item.user.lastName %> </h5>
+                            <small class="text-muted"><%= item.createdAt %></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text"><%=item.content %>
+                    </p>
+                    <!-- <img src="product.jpg" alt="Product Image" class="img-fluid"> -->
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <form onsubmit="handleIncreaseLike('<%= item._id %>')">
+                                <button type="submit" class="btn btn-dark btn-sm">Like</button>
+                                <button class="btn btn-dark btn-sm">Comment</button>
+                                <button class="btn btn-dark btn-sm">Share</button>
+                            </form>
+                        </div>
+                        <div>
+                            <span class="text-muted"><%= item.likes %> Likes</span>
+                            <span class="text-muted ml-2">0 Comments</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <% }); %>
     <%- include('../footer.ejs') %>
 </body>
 

@@ -1,7 +1,7 @@
 const postService = require('../service/posts')
 
 const page = async (req, res) => {
-    console.log(req.session.userId)
+    // console.log(req.session.userId)
     
     const posts = await postService.getPosts();
     res.render('../views/posts/index.ejs',{posts:posts});
@@ -35,8 +35,22 @@ const increaseLike = async (req, res) => {
     
 }
 
+const createComment = async (req, res) => {
+    try {
+        const user = await postService.createComment(req.body);
+        res.json(user);
+    }
+    catch (error) {
+        // 405 == Method Not Allowed
+        res.status(405).json({message: error.message})
+    }
+        // res.error(error);
+    
+}
+
 module.exports = {
     page,
     createPost,
-    increaseLike
+    increaseLike,
+    createComment
 }
