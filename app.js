@@ -30,6 +30,7 @@ mongoose.connect(process.env.MONGO_URL, {
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/views/posts'));
 app.use(express.static(__dirname + '/views/users'));
+app.use(express.static(__dirname + '/views/groups'));
 app.use(express.static(__dirname + '/views/login'));
 app.use(express.static(__dirname + '/views/profile'));
 app.use(express.static(__dirname + '/views/statistics'));
@@ -43,6 +44,7 @@ app.use("/", require("./routes/login"));
 app.use("/chat",authenticationCheck(), require("./routes/chat"));
 app.use("/posts", authenticationCheck(), require("./routes/posts"));
 app.use("/users", authenticationCheck(), require("./routes/users"));
+app.use("/groups", authenticationCheck(), require("./routes/groups"));
 app.use("/profile", authenticationCheck(), require("./routes/profile"));
 app.use("/logout", authenticationCheck(), require("./routes/logout"));
 app.use("/statistics", isAdmin(), require("./routes/statistics"));

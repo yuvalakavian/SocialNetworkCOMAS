@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const User = require('./user');
-const Post = require('./post');
-
 const groupSchema = new Schema({
     name: {
         type: String,
@@ -13,11 +10,17 @@ const groupSchema = new Schema({
         type: String,
         required: true
     },
-    posts: [Post],
-    members: [User],
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post'
+    }],
+    members: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     admin: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: User,
+        ref: 'User',
         required: true
     }
 });
