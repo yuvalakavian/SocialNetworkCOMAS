@@ -10,6 +10,19 @@ const getCurrentUser = async (userId) => {
     }
 }
 
+const deleteProfile = async (userId) => {
+    try {
+        const user = await User.findByIdAndDelete(userId);
+        if (user) {
+            console.log('User deleted successfully:', user);
+            return user;
+        }
+    } catch (error) {
+        console.error(`Error deleting user: ${error.message}`);
+        throw new Error(`Error deleting user: ${error.message}`);
+    }
+};
+
 const handleUpload = async (userId, userData) => {
     const currentUser = await User.findOne({ _id: userId })
     
@@ -26,5 +39,6 @@ const handleUpload = async (userId, userData) => {
 
 module.exports = {
     getCurrentUser,
-    handleUpload
+    handleUpload,
+    deleteProfile
 };

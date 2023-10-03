@@ -48,5 +48,21 @@ $(document).ready(function() {
         }
         readFile.readAsDataURL(file);
     });
+    
+    $('#confirmDeleteBtn').click(function() {
+        $.ajax({
+            url: '/profile/deleteProfile',
+            type: 'DELETE',
+            success: function(data) {
+                console.log(data);
+                window.location.href = "/logout";
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    });
+
+    
 });
 
