@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { commentsSchema } = require('./comment');
+const { Comments } = require('./comment');
 const User = require('./user');
 
 const postsSchema = new mongoose.Schema({
@@ -15,7 +15,11 @@ const postsSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: User,
     required: true,
-  }
+  },
+  comments: {
+    type: [Comments],
+    default: [],
+  },
 },
 {
   timestamps:true
@@ -25,7 +29,6 @@ const postsSchema = new mongoose.Schema({
   //   enum: ['video', 'image', 'text'],
   //   required: true
   // },
-  // comments: [commentsSchema]
 );
 
 const Posts = mongoose.model('Post', postsSchema);

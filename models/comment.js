@@ -11,10 +11,6 @@ const commentsSchema = new mongoose.Schema({
         ref: Users,
         required: true
     },
-    timestamp: {
-        type: Number,
-        required: true
-    }
 },
 {
     timestamps:true
