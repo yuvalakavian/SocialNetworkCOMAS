@@ -86,7 +86,6 @@ const deletePost = async (data) => {
     const existingPost = await Post.findOneAndDelete({ _id: data.id })
 
     try {
-        await existingPost.save();
         return existingPost;
     } catch (error) {
         console.error(`Error creating user: ${error.message}`);
