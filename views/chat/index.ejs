@@ -38,7 +38,7 @@
                             </div>
                             <div class="chat-message clearfix">
                                 <div class="input-group mb-0">
-                                    <input type="text" class="form-control" placeholder="Enter text here...">
+                                    <input disable id="message-input" type="text" class="form-control" onkeypress="sendMessage(event)" placeholder="Enter text here...">
                                 </div>
                             </div>
                         </div>
@@ -46,4 +46,5 @@
                 </div>
             </div>
         </div>
+        <%- include('../footer.ejs') %>
 </html>

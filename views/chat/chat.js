@@ -100,6 +100,43 @@ const handleOnFriendClick = (user) => {
 
 }
 
+const sendMessage = (e) => {
+    if(e.keyCode === 13){
+        const message = e.target.value;
+        renderMessage(message)
+        clearMessageInput()
+    }
+}
+const clearMessageInput = () => {
+    const messageInput = document.getElementById('message-input');
+    messageInput.value = ''
+}
+
+const renderMessage = (message, time= new Date() ,isRemoteMessage=false) => {
+    const chatMessagesElement = document.getElementById('chat-messages');
+    
+    const li = document.createElement('li');
+    li.className = 'clearfix'
+
+    const messageMetaDataDiv = document.createElement('div');
+    messageMetaDataDiv.classList = "message-data"
+    
+    const messageDataTimeSpan = document.createElement('span');
+    messageDataTimeSpan.classList = 'message-data-time'
+    messageDataTimeSpan.textContent = time
+
+    messageMetaDataDiv.appendChild(messageDataTimeSpan)
+
+    const messageDiv = document.createElement('div');
+    messageDiv.classList = isRemoteMessage ? "message other-message float-right" : "message other-message"
+    messageDiv.textContent = message
+
+
+    li.appendChild(messageMetaDataDiv)
+    li.appendChild(messageDiv)
+    chatMessagesElement.appendChild(li)
+}
+
 const renderChatHeader = (user) => {
     const chatHeaderElement = document.getElementById('chat-header');
 
@@ -146,6 +183,9 @@ const clearChatElements = () => {
     //reset chat header
     const chatHeaderElement = document.getElementById('chat-header');
     chatHeaderElement.innerHTML = ''
+    // reset chat messages 
+    const chatMessagesElement = document.getElementById('chat-messages');
+    chatMessagesElement.innerHTML = ''
 }
 
 initChat()
