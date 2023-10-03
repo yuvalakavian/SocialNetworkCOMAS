@@ -44,7 +44,6 @@ $(document).ready(function() {
         readFile = new FileReader();
         readFile.onload = function(event) {
             var fileContent = event.target.result;
-            // uploadHandler( stringToBytes(fileContent), file.type);
             uploadHandler( fileContent, file.type);
         }
         readFile.readAsDataURL(file);

@@ -4,7 +4,7 @@ const page = async (req, res) => {
     // console.log(req.session.userId)
     
     const posts = await postService.getPosts();
-    res.render('../views/posts/index.ejs',{posts:posts});
+    res.render('../views/posts.ejs',{posts:posts});
     //TODO: add res.render to posts of user
     // res.render)
 };

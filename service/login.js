@@ -64,7 +64,6 @@ const loginUser = async (userData) => {
         return existingUser._id
     }
     else{
-        // console.log("Not correct creds")
         throw new Error('The user or password is incorrect')
     }
 }
