@@ -47,8 +47,28 @@ const addFriend = async (userId, friendId) => {
     }
 };
 
+const removeFriend = async (userId, friendId) => {
+    try {
+        const user = await User.findById(userId);
+
+        if (!user) {
+            console.error('User not found');
+        } else {
+            user.friends.remove(friendId);
+            await user.save();
+
+            console.log('User updated:', user);
+        }
+    } catch (error) {
+        console.error(`Error removing friend: ${error.message}`);
+        throw new Error(`Error removing friend: ${error.message}`);
+    }
+};
+
+
 module.exports = {
     getUsers,
     addFriend,
-    getUser
+    getUser,
+    removeFriend
 };

@@ -7,11 +7,11 @@ const page = async (req, res) => {
 
 const getUsers = async (req, res) => {
     try {
-        const users = await userService.getUsers(req.body);
+        const { searchValue } = req.query;
+        const users = await userService.getUsers({ searchValue });
         res.json(users);
-    }
-    catch (error) {
-        res.status(500).json({message: error.message})
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 }
 
@@ -37,9 +37,21 @@ const addFriend = async (req, res) => {
     }
 }
 
+const removeFriend = async (req, res) => {
+    try {
+        const users = await userService.removeFriend(req.session.userId, req.body.friendId);
+        res.json(users);
+    }
+    catch (error) {
+        console.log(error.message)
+        res.status(500).json({message: error.message})
+    }
+}
+
 module.exports = {
     page,
     getUsers,
     addFriend,
-    getUser
+    getUser,
+    removeFriend
 }
