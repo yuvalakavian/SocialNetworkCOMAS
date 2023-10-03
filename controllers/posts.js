@@ -1,10 +1,12 @@
 const postService = require('../service/posts')
+const userService = require('../service/users')
 
 const page = async (req, res) => {
     // console.log(req.session.userId)
     
     const posts = await postService.getPosts();
-    res.render('../views/posts.ejs',{posts:posts});
+    const user = await userService.getUser(req.session.userId)
+    res.render('../views/posts.ejs',{posts:posts,user:user});
     //TODO: add res.render to posts of user
     // res.render)
 };
