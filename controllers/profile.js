@@ -1,8 +1,11 @@
 const profileService = require('../service/profile')
+const postService = require('../service/posts')
 
 const page = async (req, res) => {
     const myUser = await profileService.getCurrentUser(req.session.userId);
-    res.render("../views/profile.ejs", { myUser })
+    const posts = await postService.getPosts();
+    // res.render('../views/posts/index.ejs',{posts:posts});
+    res.render("../views/profile.ejs", { myUser: myUser,  posts:posts})
 };
 
 const uploadProfilePicHandler = (req,res) => {  

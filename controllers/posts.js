@@ -1,7 +1,7 @@
 const postService = require('../service/posts')
 
 const page = async (req, res) => {
-    console.log(req.session.userId)
+    // console.log(req.session.userId)
     
     const posts = await postService.getPosts();
     res.render('../views/posts/index.ejs',{posts:posts});
