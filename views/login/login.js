@@ -31,7 +31,7 @@ const handleSignUp = () => {
 const handleLogin = () => {
     const email = $("#email-login").val();
     const password = $("#password-login").val();
-    
+
     event.preventDefault();
     
     $.ajax({
@@ -64,3 +64,4 @@ const cleanAlerts = () => {
     $("#signupForm")[0].reset()
     $("#loginForm")[0].reset()
 }
+
