@@ -14,7 +14,26 @@ const getPosts = async () => {
 };
 
 
-const createPost = async (userId, postData) => {
+const createComment = async (data) => {
+    if (!data || !data.id || !data.comment) {
+        console.error('Invalid user data. All fields are required.')
+        throw new Error('Invalid user data. All fields are required.')
+    }
+
+    const existingPost = await Post.findOne({ _id: data.id });    
+
+    try {
+        comments = existingPost.comments
+        comments.push(data.comment)
+        await existingPost.save();
+        return existingPost;
+    } catch (error) {
+        console.error(`Error creating user: ${error.message}`);
+        throw new Error(`Error creating user: ${error.message}`)
+    }
+};
+
+const createPost = async (userId,postData) => {
     console.log("user", postData)
     if (!userId || !postData || !postData.content) {
         console.error('Invalid user data. All fields are required.')
@@ -80,4 +99,5 @@ module.exports = {
     getPosts,
     increaseLike,
     deletePost,
+    createComment,
 };
