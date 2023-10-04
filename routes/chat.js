@@ -9,5 +9,4 @@ router.post('/:userId', createNewChat)
 router.get('/friends', getUserFriends);
 router.get('/:userId', getChat);
 
-
 module.exports = router;

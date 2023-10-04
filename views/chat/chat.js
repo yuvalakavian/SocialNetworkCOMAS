@@ -1,5 +1,22 @@
 const AVATAR_API_URL = "https://ui-avatars.com/api/"
+const SOCKET_CONNECTION = 'http://localhost:8080'
+const JOIN_CHAT = 'join chat'
+const LEAVE_CHAT = 'leave chat'
+const SEND_MESSAGE = 'send message'
+const DISCONNECT = 'disconnect'
+
+const socket = io(SOCKET_CONNECTION);
+
+let currentChatId = ""
 const chatFrindsListElemets = []
+
+const joinChat = (chatId) => {
+    socket.emit('join chat', chatId);
+}
+
+socket.on(SEND_MESSAGE, (message) => {
+    renderMessage(message, new Date(), true);
+});
 
 const initChat = () => {
     $.ajax({
@@ -61,14 +78,18 @@ const handleOnFriendClick = (user) => {
         url: `/chat/${user._id}`,
         method: "GET",
         success: function (data) {
-            //implement render messages method
-            console.log(data);
+            // connect to chat socket 
+            currentChatId = data._id
+            joinChat(currentChatId)
         },
         error: (error) => {
             $.ajax({
                 url: `/chat/${user._id}`,
                 method: "POST",
                 success: function (data) {
+                    // connect to chat socket
+                    currentChatId = data._id
+                    joinChat(currentChatId)
                     console.log("create chat was successfuly", data);
                 },
                 error: (error) => {
@@ -84,6 +105,7 @@ const sendMessage = (e) => {
     if(e.keyCode === 13){
         const message = e.target.value;
         renderMessage(message)
+        socket.emit('send message', { chatId: currentChatId, message });
         clearMessageInput()
     }
 }
