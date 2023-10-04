@@ -1,5 +1,4 @@
 const express = require("express");
-const http = require('http');
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -10,7 +9,6 @@ const { authenticationCheck, isAdmin } = require('./middleware/authenticationChe
 require('dotenv').config();
 
 const app = express();
-const server = http.createServer(app);
 
 app.use(express.json({ limit: '15mb' }));
 app.use(express.urlencoded({ limit: '15mb', extended: true }));
@@ -53,15 +51,18 @@ app.use("/profile", authenticationCheck(), require("./routes/profile"));
 app.use("/logout", authenticationCheck(), require("./routes/logout"));
 app.use("/statistics", isAdmin(), require("./routes/statistics"));
 
+
 // Not Found pathes handling
-app.use((req, res) => {
-  res.status(404).render('../views/404.ejs'); 
-});
+// app.use((req, res) => {
+//   res.status(404).render('../views/404.ejs'); 
+// });
 
 
-initChatSocket(server);
+
 
 // Start the server
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+initChatSocket(server);
