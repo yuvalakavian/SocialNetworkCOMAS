@@ -49,5 +49,6 @@ const isAdmin = ()  => async (req, res, next) => {
 
 module.exports = { 
     authenticationCheck,
+    createUser,
     isAdmin
 };

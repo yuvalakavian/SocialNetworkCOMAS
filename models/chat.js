@@ -2,24 +2,33 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+const messageSchema = new Schema(
+    {
+        sentBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
+        value: {
+            type: String,
+        }
+    },
+    {
+        timestamps: true
+    }
+);
+
 const chatSchema = new Schema({
     from: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     to: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
-    message: {
-        type: String,
-        require: true
-    },
-    messageType: {
-        type: String,
-        enum: ['video', 'image', 'text'],
-        required: true
-    }
+    messages: [messageSchema]
 });
 
 module.exports = mongoose.model('Chat', chatSchema);
