@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const { commentsSchema } = require('./comment');
+const { Comments } = require('./comment');
+const User = require('./user');
 
 const postsSchema = new mongoose.Schema({
   likes: {
@@ -10,13 +11,25 @@ const postsSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  contentType: {
-    type: String,
-    enum: ['video', 'image', 'text'],
-    required: true
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: User,
+    required: true,
   },
-  comments: [commentsSchema]
-});
+  comments: {
+    type: [Comments],
+    default: [],
+  },
+},
+{
+  timestamps:true
+},
+  // contentType: {
+  //   type: String,
+  //   enum: ['video', 'image', 'text'],
+  //   required: true
+  // },
+);
 
 const Posts = mongoose.model('Post', postsSchema);
 
