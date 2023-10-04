@@ -12,9 +12,12 @@ const getUserFriends = async (userId) => {
 const getChat = async (fromUserId, toUserId) => {
 
     const chat = await Chat.findOne({
-        from: fromUserId,
-        to: toUserId
+        $or: [
+            { from: fromUserId, to: toUserId },
+            { from: toUserId, to: fromUserId }
+        ]
     });
+
     if (!chat) {
         throw Error("chat does not exists")
     }
