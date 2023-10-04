@@ -53,12 +53,9 @@ app.use("/statistics", isAdmin(), require("./routes/statistics"));
 
 
 // Not Found pathes handling
-// app.use((req, res) => {
-//   res.status(404).render('../views/404.ejs'); 
-// });
-
-
-
+app.use((req, res) => {
+  res.status(404).render('../views/404.ejs'); 
+});
 
 // Start the server
 const server = app.listen(port, () => {
