@@ -2,7 +2,7 @@
 
 const Post = require('../models/post');
 
-const getPosts = async () => {
+const getAllPosts = async () => {
     const posts = await Post.find().populate('user');
 
     try {
@@ -13,6 +13,15 @@ const getPosts = async () => {
     }
 };
 
+async function getCustomPosts(userIds) {
+  try {
+    const posts = await Post.find({ user: { $in: userIds } }).populate('user');
+    return posts;
+  } catch (err) {
+    console.error('Error finding posts :', err);
+    throw new Error(`Error finding posts : ${error.message}`)
+  }
+}
 
 const createComment = async (data) => {
     if (!data || !data.id || !data.comment) {
@@ -95,7 +104,8 @@ const deletePost = async (data) => {
 
 module.exports = {
     createPost,
-    getPosts,
+    getCustomPosts,
+    getAllPosts,
     increaseLike,
     deletePost,
     createComment,
