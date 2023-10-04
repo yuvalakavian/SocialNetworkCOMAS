@@ -1,5 +1,6 @@
 // TODO: implement profile service 
 const User = require('../models/user');
+const Post = require('../models/post');
 
 const getCurrentUser = async (userId) => {
     try {
@@ -13,6 +14,7 @@ const getCurrentUser = async (userId) => {
 const deleteProfile = async (userId) => {
     try {
         const user = await User.findByIdAndDelete(userId);
+        await Post.deleteMany({ user: userId })
         if (user) {
             console.log('User deleted successfully:', user);
             return user;

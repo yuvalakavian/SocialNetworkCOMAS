@@ -3,7 +3,7 @@ const postService = require('../service/posts')
 
 const page = async (req, res) => {
     const myUser = await profileService.getCurrentUser(req.session.userId);
-    const posts = await postService.getPosts();
+    const posts = await postService.getCustomPosts([req.session.userId]);     
     res.render("../views/profile.ejs", { myUser: myUser,  posts:posts})
 };
 
