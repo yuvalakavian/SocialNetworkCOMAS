@@ -85,7 +85,7 @@
                                 <button type="submit" class="btn btn-dark btn-sm"
                                     onclick="handleIncreaseLike('<%= item._id %>')">Like</button>
                                 <button class="btn btn-dark btn-sm" id="openCommentsButton" onclick="toggleCommentSection('<%= item._id %>')">Comment</button>
-                                <button class="btn btn-dark btn-sm">Share</button>
+                                <button class="btn btn-dark btn-sm" onclick="postTweet('<%= item.content %>')">Share</button>
                                 <button id="deleteButton" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Post</button>
                             </div>
                             <div>

@@ -60,10 +60,24 @@ const createComment = async (req, res) => {
     
 }
 
+const postTweet = async (req, res) => {
+    try {
+        const user = await postService.postTweet(req.body);
+        res.json(user);
+    }
+    catch (error) {
+        // 405 == Method Not Allowed
+        res.status(405).json({message: error.message})
+    }
+        // res.error(error);
+    
+}
+
 module.exports = {
     page,
     createPost,
     increaseLike,
     deletePost,
-    createComment
+    createComment,
+    postTweet,
 }

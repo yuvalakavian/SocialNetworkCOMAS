@@ -110,3 +110,23 @@ const toggleCommentSection = (id) => {
     comment_section_id = "commentsSection_" + id
     $("#" + comment_section_id).toggle(); // Show/hide the comments section
 };
+
+function postTweet(tweetText) {
+
+    data = {
+        tweetText: tweetText,
+    }
+    $.ajax({
+        url: "/posts/postTweet",
+        method: "POST",
+        data: data,
+        success: function (data) {
+            console.log(data)
+            location.reload(true);
+        },
+        error: function (error) {
+            console.log(error.responseJSON.message);
+            handleErrorMessage(error.responseJSON.message);
+        }
+    });
+}
