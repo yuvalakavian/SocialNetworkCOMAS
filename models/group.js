@@ -10,6 +10,10 @@ const groupSchema = new Schema({
         type: String,
         required: true
     },
+    posts: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+        default: []
+    },
     members: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
