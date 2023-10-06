@@ -1,6 +1,14 @@
 // TODO: implement posts service 
 
 const Post = require('../models/post');
+const { TwitterApi } = require('twitter-api-v2');
+
+const client = new TwitterApi({
+    appKey: process.env.X_API_KEY,
+    appSecret: process.env.X_API_KEY_SECRET,
+    accessToken: process.env.X_ACCESS_TOKEN,
+    accessSecret: process.env.X_ACCESS_TOKEN_SECRET
+});
 
 const getAllPosts = async () => {
     const posts = await Post.find().populate('user');
@@ -14,13 +22,13 @@ const getAllPosts = async () => {
 };
 
 async function getCustomPosts(userIds) {
-  try {
-    const posts = await Post.find({ user: { $in: userIds } }).populate('user');
-    return posts;
-  } catch (err) {
-    console.error('Error finding posts :', err);
-    throw new Error(`Error finding posts : ${error.message}`)
-  }
+    try {
+        const posts = await Post.find({ user: { $in: userIds } }).populate('user');
+        return posts;
+    } catch (err) {
+        console.error('Error finding posts :', err);
+        throw new Error(`Error finding posts : ${error.message}`)
+    }
 }
 
 const createComment = async (data) => {
@@ -29,7 +37,7 @@ const createComment = async (data) => {
         throw new Error('Invalid user data. All fields are required.')
     }
 
-    const existingPost = await Post.findOne({ _id: data.id });    
+    const existingPost = await Post.findOne({ _id: data.id });
 
     try {
         comments = existingPost.comments
@@ -42,7 +50,7 @@ const createComment = async (data) => {
     }
 };
 
-const createPost = async (userId,postData) => {
+const createPost = async (userId, postData) => {
     console.log("user", postData)
     if (!userId || !postData || !postData.content) {
         console.error('Invalid user data. All fields are required.')
@@ -102,6 +110,15 @@ const deletePost = async (data) => {
     }
 };
 
+function postTweet(data) {
+    client.v2.tweet(data.tweetText).then((val) => {
+        console.log(val)
+    }).catch((err) => {
+        console.log(err)
+    })
+
+}
+
 module.exports = {
     createPost,
     getCustomPosts,
@@ -109,4 +126,5 @@ module.exports = {
     increaseLike,
     deletePost,
     createComment,
+    postTweet,
 };

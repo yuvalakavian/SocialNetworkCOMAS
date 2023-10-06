@@ -1,3 +1,6 @@
+// Function to play video preview
+// document.getElementById('videoPreview').play();
+
 const handleSignUp = () => {
     event.preventDefault();
     
