@@ -2,11 +2,12 @@ const postService = require('../service/posts')
 const userService = require('../service/users')
 
 const page = async (req, res) => {
-    const posts = await postService.getAllPosts();
     const user = await userService.getUser(req.session.userId);
+    usersList = []
+    usersList.push(...user.friends);
+    usersList.push(req.session.userId);
+    const posts = await postService.getCustomPosts(usersList);     
     res.render('../views/posts.ejs',{posts:posts,user:user});
-    //TODO: add res.render to posts of user
-    // res.render)
 };
 
 const createPost = async (req, res) => {
