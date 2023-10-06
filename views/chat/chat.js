@@ -61,7 +61,6 @@ const initChat = () => {
         },
         error: function (error) {
             console.log(error);
-
         }
     }
     )
@@ -105,8 +104,23 @@ const handleOnFriendClick = (user) => {
 const sendMessage = (e) => {
     if(e.keyCode === 13){
         const message = e.target.value;
-        // renderMessage(message)
         socket.emit(SEND_MESSAGE, { chatId: currentChatId, message });
+
+        $.ajax({
+            url: `/chat/message`,
+            method: "POST",
+            data: {
+                chatId: currentChatId,
+                value: message
+            },
+            success: function (data) {
+                console.log("successfuly send message to mongodb");
+            },
+            error: (error) => {
+                console.log("failed to send message", error);
+            }
+        });
+
         clearMessageInput()
     }
 }

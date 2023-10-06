@@ -35,8 +35,16 @@ const createNewChat = async (fromUserId, toUserId) => {
     console.log("create chat was sucessfully!")
 }
 
+const sendMessage = async (data, sentBy) => {
+    const { chatId, value } = data;
+    const chat = await Chat.findOne({ _id: chatId });
+    chat.messages.push({ sentBy, value });
+    await chat.save();
+}
+
 module.exports = {
     getChat,
+    sendMessage,
     getUserFriends,
     createNewChat
 }
