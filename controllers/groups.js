@@ -1,35 +1,25 @@
-const userService = require('../service/groups')
+const groupsService = require('../service/groups')
 
 const page = async (req, res) => {
-    console.log(req.session.userId)
-    res.render('../views/groups/index.ejs', {userId: req.session.userId});
+    console.log(req.session.groupId)
+    res.render('../views/groups/index.ejs', {groupId: req.session.groupId});
 };
-
-const getGroups = async (req, res) => {
-    try {
-        const users = await userService.getGroups(req.body);
-        res.json(users);
-    }
-    catch (error) {
-        res.status(500).json({message: error.message})
-    }
-}
 
 const searchGroups = async (req, res) => {
     try {
-        const user = await userService.searchGroups(req.session.userId);
-        res.json(user);
+        const searchValue = req.query.searchValue;
+        const groups = await groupsService.searchGroups({ searchValue });
+        res.json(groups);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
-    catch (error) {
-        res.status(500).json({message: error.message})
-    }
-    
 }
 
 const addGroups = async (req, res) => {
     try {
-        const users = await userService.addGroups(req.session.userId, req.body.friendId);
-        res.json(users);
+        const { groupId, userId } = req.body;
+        const groups = await groupsService.addGroups(groupId, userId);
+        res.json(groups);
     }
     catch (error) {
         console.log(error.message)
@@ -37,21 +27,45 @@ const addGroups = async (req, res) => {
     }
 }
 
-const removeGroups = async (req, res) => {
+const leaveGroups = async (req, res) => {
     try {
-        const users = await userService.removeGroups(req.session.userId, req.body.friendId);
-        res.json(users);
+        const { groupId, userId } = req.body;
+        const groups = await groupsService.leaveGroups(groupId, userId);
+        res.json(groups);
     }
     catch (error) {
         console.log(error.message)
         res.status(500).json({message: error.message})
     }
 }
+
+const removeGroup = async (req, res) => {
+    const groupId = req.body.groupId;
+    try {
+        const group = await groupsService.removeGroup(groupId);
+        res.json(group);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+const createGroup = async (req, res) => {
+    try {
+        const group = await groupsService.createGroup(req.body);
+
+        res.json(group);
+
+    } catch (error) {
+        console.error(`Error creating group: ${error.message}`);
+        res.status(500).json({ message: error.message });
+    }
+};
 
 module.exports = {
     page,
-    getGroups,
     searchGroups,
     addGroups,
-    removeGroups
+    leaveGroups,
+    removeGroup,
+    createGroup
 }
