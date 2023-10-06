@@ -76,7 +76,6 @@ const onEnter = async (event) => {
                                     method: "POST",
                                     data: { userId: currentUser._id, friendId: user._id },
                                     success: function (data) {
-                                        document.getElementById(user._id + "-remove").innerHTML = addButtonElement;
                                         console.log(data);
                                     },
                                     error: function (error) {

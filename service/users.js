@@ -32,32 +32,40 @@ const getUsers = async ({ searchValue }) => {
 const addFriend = async (userId, friendId) => {
     try {
         const user = await User.findById(userId);
+        const friend = await User.findById(friendId);
 
-        if (!user) {
-          console.error('User not found');
+        if (!user || !friend) {
+            console.error('User or friend not found');
         } else {
-          user.friends.push(friendId);
-          await user.save();
+            user.friends.push(friendId);
+            friend.friends.push(userId);
 
-          console.log('User updated:', user);
+            await user.save();
+            await friend.save();
+
+            console.log('User and friend updated:', user, friend);
         }
     } catch (error) {
         console.error(`Error adding friend: ${error.message}`);
-        throw new Error(`Error adding friend: ${error.message}`)
+        throw new Error(`Error adding friend: ${error.message}`);
     }
 };
 
 const removeFriend = async (userId, friendId) => {
     try {
         const user = await User.findById(userId);
+        const friend = await User.findById(friendId);
 
-        if (!user) {
-            console.error('User not found');
+        if (!user || !friend) {
+            console.error('User or friend not found');
         } else {
             user.friends.remove(friendId);
-            await user.save();
+            friend.friends.remove(userId);
 
-            console.log('User updated:', user);
+            await user.save();
+            await friend.save();
+
+            console.log('User and friend updated:', user, friend);
         }
     } catch (error) {
         console.error(`Error removing friend: ${error.message}`);
